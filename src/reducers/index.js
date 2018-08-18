@@ -65,7 +65,7 @@ function rootReducer(state = initialState, action) {
       return { ...state, fetching: true };
     case TYPES.FETCH_SINGLE_SUCCESS:
       let singleTodoArray = state.todos.filter(
-        todo => todo.id == action.payload
+        todo => todo.id.toString() === action.payload
       );
       return {
         ...state,

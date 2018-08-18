@@ -1,44 +1,25 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import Todos, { TodoList, NewTodoForm, Todo } from './components/Todo';
+import { AllTodosPage, SingleTodoPage } from './components/pages';
 
 class App extends Component {
-  renderTodos = () => (
-    <Todos>
-      {({ todos, addTodo, completeTodo, deleteTodo }) => (
-        <Fragment>
-          <NewTodoForm addTodo={addTodo} />
-          <TodoList
-            deleteTodo={deleteTodo}
-            completeTodo={completeTodo}
-            todos={todos}
-          />
-        </Fragment>
-      )}
-    </Todos>
-  );
-  renderTodo = props => (
-    <Todos>
-      {({ todos, deleteTodo, completeTodo, updateTodo }) => (
-        <Todo
-          {...props}
-          todos={todos}
-          deleteTodo={deleteTodo}
-          completeTodo={completeTodo}
-          updateTodo={updateTodo}
-        />
-      )}
-    </Todos>
-  );
   render() {
     return (
-      <div>
-        <Route exact path="/" render={this.renderTodos} />
-        <Route path="/:id" render={this.renderTodo} />
+      <div style={styles.container}>
+        <Route exact path="/" render={props => <AllTodosPage {...props} />} />
+        <Route path="/:id" render={props => <SingleTodoPage {...props} />} />
       </div>
     );
   }
 }
 
 export default App;
+
+const styles = {
+  container: {
+    boxSizing: 'border-box',
+    width: '800px',
+    margin: '0 auto'
+  }
+};

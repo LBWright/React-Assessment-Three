@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect, withRouter } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Link, withRouter } from 'react-router-dom';
+import { Button, Input, TextField } from '@material-ui/core';
 
 import { fetchSingleTodo } from '../../actions';
 
@@ -28,6 +28,7 @@ class Todo extends Component {
     this.props.deleteTodo(id);
     this.props.history.push('/');
   };
+
   handleSubmit = event => {
     event.preventDefault();
     const todo = {
@@ -36,9 +37,11 @@ class Todo extends Component {
     };
     this.props.updateTodo(todo);
   };
+
   handleInput = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
+
   render() {
     if (this.props.fetching) {
       return <h3>Loading...</h3>;
@@ -51,38 +54,59 @@ class Todo extends Component {
       );
     }
     const {
-      todo: { id, title, description, completed },
+      todo: { id, completed },
       completeTodo
     } = this.props;
     return (
       <div>
-        <Link to="/">Back to Tasks</Link>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            name="title"
-            value={this.state.title}
-            type="text"
-            onChange={this.handleInput}
-          />
-          <textarea
+        <Link style={styles.link} to="/">
+          &lt; Back to Tasks
+        </Link>
+        <form style={styles.view} onSubmit={this.handleSubmit}>
+          <div style={styles.margin} className="add-todo">
+            <Input
+              name="title"
+              value={this.state.title}
+              type="text"
+              onChange={this.handleInput}
+              style={completed ? styles.completed : null}
+            />
+            <Button
+              styles={styles.button.complete}
+              disabled={completed}
+              onClick={() => {
+                completeTodo(id);
+              }}
+            >
+              Complete
+            </Button>
+          </div>
+          <TextField
             name="description"
             value={this.state.description}
             type="text"
             onChange={this.handleInput}
             placeholder="Description"
+            style={styles.margin}
           />
-          <Button color="primary" variant="contained" type="submit">
-            Save
-          </Button>
-          <Button
-            disabled={completed}
-            onClick={() => {
-              completeTodo(id);
-            }}
-          >
-            Complete
-          </Button>
-          <Button onClick={this.handleDelete}>Delete</Button>
+          <div className="button-group">
+            <Button
+              style={styles.button.save}
+              variant="contained"
+              type="submit"
+            >
+              Save
+            </Button>
+            <Button
+              onClick={() => this.props.history.push('/')}
+              style={styles.button.cancel}
+            >
+              Cancel
+            </Button>
+            <Button style={styles.button.delete} onClick={this.handleDelete}>
+              Delete
+            </Button>
+          </div>
         </form>
       </div>
     );
@@ -100,3 +124,43 @@ export default withRouter(
     { fetchSingleTodo }
   )(Todo)
 );
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  completed: {
+    textDecoration: 'line-through'
+  },
+  margin: {
+    margin: '20px 0'
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'black',
+    fontWeight: 'bold'
+  },
+  button: {
+    save: {
+      marginRight: '20px',
+      color: 'white',
+      background: '#2196f3'
+    },
+    cancel: {
+      margin: '20px',
+      color: 'black',
+      background: '#E0E0E0'
+    },
+    delete: {
+      margin: '20px',
+      color: 'white',
+      background: '#EF5350'
+    },
+    complete: {
+      margin: '20px',
+      color: 'black',
+      background: '#E0E0E0'
+    }
+  }
+};

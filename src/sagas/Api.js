@@ -36,11 +36,6 @@ export const postData = async body => {
 export const patchData = async ({ id, title, description }) => {
   // The server doesn't seem to be responding with the description of any of the tasks
   try {
-    console.log(
-      'sending title and description to the server:',
-      title,
-      description
-    );
     const response = await fetch(
       `https://practiceapi.devmountain.com/api/tasks/${id}`,
       {
@@ -52,7 +47,6 @@ export const patchData = async ({ id, title, description }) => {
       }
     );
     const data = await response.json();
-    console.log('recieved response of:', data);
     return data;
   } catch (error) {
     throw error;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Input, Button } from '@material-ui/core';
 
 class NewTodoForm extends Component {
   state = {
@@ -24,18 +25,29 @@ class NewTodoForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          value={this.state.title}
-          onChange={this.handleInput}
-          placeholder="Add a Todo"
-        />
-        <button>Add New</button>
-      </form>
+      <div>
+        <h1>Add a ToDo:</h1>
+        <form onSubmit={this.handleSubmit}>
+          <Input
+            type="text"
+            name="title"
+            value={this.state.title}
+            onChange={this.handleInput}
+            placeholder="Add a Todo"
+          />
+          <Button style={styles.button}>Add New</Button>
+        </form>
+      </div>
     );
   }
 }
 
 export default NewTodoForm;
+
+const styles = {
+  button: {
+    color: 'white',
+    background: '#2196F3',
+    margin: '0 20px'
+  }
+};

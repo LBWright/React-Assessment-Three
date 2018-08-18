@@ -14,7 +14,6 @@ export const fetchData = async () => {
 };
 
 export const postData = async body => {
-  // The server doesn't seem to be responding with the description of any of the tasks
   try {
     const response = await fetch(
       'https://practiceapi.devmountain.com/api/tasks',
@@ -34,7 +33,6 @@ export const postData = async body => {
 };
 
 export const patchData = async ({ id, title, description, completed }) => {
-  // The server doesn't seem to be responding with the description of any of the tasks
   try {
     const response = await fetch(
       `https://practiceapi.devmountain.com/api/tasks/${id}`,

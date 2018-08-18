@@ -7,9 +7,13 @@ import PropTypes from 'prop-types';
 import { fetchSingleTodo } from '../../actions';
 
 class Todo extends Component {
+  // all of these items are kept on state to
+  // make it easier update the state in CDU method
   state = {
+    id: 0,
     title: '',
-    description: ''
+    description: '',
+    completed: false
   };
 
   static propTypes = {
@@ -32,7 +36,9 @@ class Todo extends Component {
     } else if (prevProps.todo !== this.props.todo && this.props.todo) {
       this.setState({
         title: this.props.todo.title,
-        description: this.props.todo.description
+        description: this.props.todo.description,
+        completed: this.props.todo.completed,
+        id: this.props.todo.id
       });
     }
   }
@@ -46,8 +52,10 @@ class Todo extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const todo = {
+      id: this.state.id,
       title: this.state.title,
-      description: this.state.description
+      description: this.state.description,
+      completed: this.state.completed
     };
     this.props.updateTodo(todo);
   };
@@ -101,7 +109,7 @@ class Todo extends Component {
             type="text"
             onChange={this.handleInput}
             placeholder="Description"
-            style={styles.margin}
+            style={styles.textField}
           />
           <div className="button-group">
             <Button
@@ -140,15 +148,12 @@ export default withRouter(
 );
 
 const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
   completed: {
     textDecoration: 'line-through'
   },
-  margin: {
-    margin: '20px 0'
+  textField: {
+    margin: '20px 0',
+    width: '600px'
   },
   link: {
     textDecoration: 'none',

@@ -62,7 +62,6 @@ function* completeTodo(action) {
 
 function* updateTodo(action) {
   try {
-    console.log('logging action inside of saga', action);
     const data = yield call(patchData, action.payload);
     yield put({ type: TYPES.UPDATE_TODO_SUCCESS, payload: data });
   } catch (error) {

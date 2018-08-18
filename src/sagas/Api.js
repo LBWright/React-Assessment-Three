@@ -33,7 +33,7 @@ export const postData = async body => {
   }
 };
 
-export const patchData = async ({ id, title, description }) => {
+export const patchData = async ({ id, title, description, completed }) => {
   // The server doesn't seem to be responding with the description of any of the tasks
   try {
     const response = await fetch(
@@ -43,7 +43,7 @@ export const patchData = async ({ id, title, description }) => {
         headers: {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify({ title, description })
+        body: JSON.stringify({ title, description, completed })
       }
     );
     const data = await response.json();

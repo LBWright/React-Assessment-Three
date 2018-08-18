@@ -54,9 +54,6 @@ const styles = {
   completed: {
     textDecoration: 'line-through'
   },
-  margin: {
-    margin: '20px 0'
-  },
   link: {
     textDecoration: 'none',
     color: 'black',

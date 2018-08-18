@@ -2,6 +2,7 @@ import * as TYPES from '../actions/types';
 
 const initialState = {
   todos: [],
+  todo: {},
   error: {},
   fetching: false
 };
@@ -59,6 +60,17 @@ function rootReducer(state = initialState, action) {
         ...state,
         fetching: false,
         todos: action.payload
+      };
+    case TYPES.FETCH_SINGLE_REQUEST:
+      return { ...state, fetching: true };
+    case TYPES.FETCH_SINGLE_SUCCESS:
+      let singleTodoArray = state.todos.filter(
+        todo => todo.id == action.payload
+      );
+      return {
+        ...state,
+        todo: singleTodoArray[0],
+        fetching: false
       };
     case TYPES.ERROR:
       return {

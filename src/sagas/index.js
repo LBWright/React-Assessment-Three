@@ -1,4 +1,4 @@
-import { put, takeEvery, call } from 'redux-saga/effects';
+import { put, takeEvery, call, all } from 'redux-saga/effects';
 
 import * as TYPES from '../actions/types';
 import { fetchData, postData, patchData, deleteData, putData } from './Api';
@@ -6,6 +6,10 @@ import { fetchData, postData, patchData, deleteData, putData } from './Api';
 // Watcher Sagas
 export function* watchFetchTodos() {
   yield takeEvery(TYPES.FETCH_TODOS_REQUEST, fetchTodos);
+}
+
+export function* watchFetchSingleTodo() {
+  yield takeEvery(TYPES.FETCH_SINGLE_REQUEST, fetchSingleTodo);
 }
 
 export function* watchAddTodo() {
@@ -34,6 +38,10 @@ function* fetchTodos(action) {
   }
 }
 
+function* fetchSingleTodo(action) {
+  yield put({ type: TYPES.FETCH_SINGLE_SUCCESS, payload: action.payload });
+}
+
 function* addTodo(action) {
   try {
     const data = yield call(postData, action.payload);
@@ -54,6 +62,7 @@ function* completeTodo(action) {
 
 function* updateTodo(action) {
   try {
+    console.log('logging action inside of saga', action);
     const data = yield call(patchData, action.payload);
     yield put({ type: TYPES.UPDATE_TODO_SUCCESS, payload: data });
   } catch (error) {
@@ -71,11 +80,12 @@ function* deleteTodo(action) {
 }
 
 export default function* rootSaga() {
-  yield [
+  yield all([
     watchFetchTodos(),
     watchAddTodo(),
     watchCompleteTodo(),
     watchDeleteTodo(),
-    watchUpdateTodo()
-  ];
+    watchUpdateTodo(),
+    watchFetchSingleTodo()
+  ]);
 }

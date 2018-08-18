@@ -4,7 +4,8 @@ import {
   addTodoRequest,
   completeTodoRequest,
   fetchTodosRequest,
-  deleteTodoRequest
+  deleteTodoRequest,
+  updateTodoRequest
 } from '../../actions';
 import PropTypes from 'prop-types';
 
@@ -32,12 +33,17 @@ class Todos extends Component {
     this.props.deleteTodoRequest(id);
   };
 
+  updateTodo = todo => {
+    this.props.updateTodoRequest(todo);
+  };
+
   render() {
     const todos = {
       todos: this.props.todos,
       addTodo: this.addTodo,
       completeTodo: this.completeTodo,
-      deleteTodo: this.deleteTodo
+      deleteTodo: this.deleteTodo,
+      updateTodo: this.updateTodo
     };
     const { children } = this.props;
     return children(todos);
@@ -50,5 +56,11 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addTodoRequest, completeTodoRequest, fetchTodosRequest, deleteTodoRequest }
+  {
+    addTodoRequest,
+    completeTodoRequest,
+    fetchTodosRequest,
+    deleteTodoRequest,
+    updateTodoRequest
+  }
 )(Todos);

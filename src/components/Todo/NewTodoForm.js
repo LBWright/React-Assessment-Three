@@ -15,12 +15,11 @@ class NewTodoForm extends Component {
 
     const todo = {
       title: this.state.title,
-      description: this.state.description,
       completed: false
     };
 
     this.props.addTodo(todo);
-    this.setState({ title: '', description: '' });
+    this.setState({ title: '' });
   };
 
   render() {
@@ -32,13 +31,6 @@ class NewTodoForm extends Component {
           value={this.state.title}
           onChange={this.handleInput}
           placeholder="Add a Todo"
-        />
-        <textarea
-          type="text"
-          name="description"
-          value={this.state.description}
-          onChange={this.handleInput}
-          placholder="Description"
         />
         <button>Add New</button>
       </form>

@@ -1,7 +1,6 @@
 import * as TYPES from './types';
 
 export const addTodoRequest = todo => {
-  console.log('logging my todo inside of the action', todo);
   return { type: TYPES.ADD_TODO_REQUEST, payload: todo };
 };
 
@@ -19,4 +18,8 @@ export const updateTodoRequest = todo => {
 
 export const deleteTodoRequest = id => {
   return { type: TYPES.DELETE_TODO_REQUEST, payload: id };
+};
+
+export const fetchSingleTodo = id => {
+  return { type: TYPES.FETCH_SINGLE_REQUEST, payload: id };
 };

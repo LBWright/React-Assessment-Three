@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Input, TextField } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 import { fetchSingleTodo } from '../../actions';
 
@@ -9,6 +10,19 @@ class Todo extends Component {
   state = {
     title: '',
     description: ''
+  };
+
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    fetchSingleTodo: PropTypes.func.isRequired,
+    fetching: PropTypes.bool.isRequired,
+    completeTodo: PropTypes.func.isRequired,
+    deleteTodo: PropTypes.func.isRequired,
+    updateTodo: PropTypes.func.isRequired,
+    todos: PropTypes.array.isRequired,
+    todo: PropTypes.object
   };
 
   componentDidUpdate(prevProps) {

@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { Input, Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 class NewTodoForm extends Component {
   state = {
     title: '',
     description: ''
+  };
+
+  static propTypes = {
+    addTodo: PropTypes.func.isRequired
   };
 
   handleInput = ({ target: { value, name } }) => {

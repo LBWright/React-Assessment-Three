@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Todos, { Todo } from '../Todo';
 
 const SingleTodoPage = props => {
@@ -17,6 +19,12 @@ const SingleTodoPage = props => {
       </Todos>
     </div>
   );
+};
+
+SingleTodoPage.propTypes = {
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 export default SingleTodoPage;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const TodoListItem = ({
   id,
@@ -30,6 +31,15 @@ const TodoListItem = ({
       </div>
     </div>
   );
+};
+
+TodoListItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+  description: PropTypes.string,
+  completeTodo: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired
 };
 
 export default TodoListItem;

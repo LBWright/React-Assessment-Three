@@ -11,7 +11,13 @@ import PropTypes from 'prop-types';
 
 class Todos extends Component {
   static propTypes = {
-    children: PropTypes.func.isRequired
+    children: PropTypes.func.isRequired,
+    todos: PropTypes.array.isRequired,
+    addTodoRequest: PropTypes.func.isRequired,
+    updateTodoRequest: PropTypes.func.isRequired,
+    deleteTodoRequest: PropTypes.func.isRequired,
+    fetchTodosRequest: PropTypes.func.isRequired,
+    completeTodoRequest: PropTypes.func.isRequired
   };
   state = {
     todos: []
